@@ -65,19 +65,10 @@ A_ID ASC
 create table LOGIN
 (
    ID_LOGIN             int 		NOT NULL AUTO_INCREMENT,
-   R_ID                 int 		NOT NULL,
-   O_ID                 int 		NOT NULL,
    EMAIL                varchar(128)                   not null,
    PASSWORD             varchar(128)                   not null,
    ROLE                 char(8)                        not null,
    constraint PK_LOGIN primary key clustered (ID_LOGIN)
-);
-
-/*==============================================================*/
-/* Index: LOGIN_RELAWAN2_FK                                     */
-/*==============================================================*/
-create index LOGIN_RELAWAN2_FK on LOGIN (
-R_ID ASC
 );
 
 /*==============================================================*/
@@ -147,18 +138,6 @@ alter table GABUNG_RELAWAN
 
 alter table GABUNG_RELAWAN
    add constraint FK_GABUNG_R_GABUNG_RE_RELAWAN foreign key (R_ID)
-      references RELAWAN (R_ID)
-      on update restrict
-      on delete restrict;
-
-alter table LOGIN
-   add constraint FK_LOGIN_LOGIN_ORG_ORGANISA foreign key (O_ID)
-      references ORGANISASI (O_ID)
-      on update restrict
-      on delete restrict;
-
-alter table LOGIN
-   add constraint FK_LOGIN_LOGIN_REL_RELAWAN foreign key (R_ID)
       references RELAWAN (R_ID)
       on update restrict
       on delete restrict;
