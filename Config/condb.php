@@ -3,7 +3,7 @@
 $databaseHost = "localhost";
 $databaseName="rangkul_pweb";
 $databaseUsername="root";
-$databasePassword="haha";
+$databasePassword="";
 
 $mysqli=mysqli_connect($databaseHost,$databaseUsername,$databasePassword,$databaseName);
 
