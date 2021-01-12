@@ -2,19 +2,45 @@
 // include database connection file
 include_once("../Config/condb.php");
 
-if ($_POST['act'] == "register"){
-
+if ($_POST['act'] == "registerRelawan"){
     $nama = $_POST['nama'];
+    $telp = $_POST['telp'];
+    $tglLahir = $_POST['tglLahir'];
+    $profesi = $_POST['profesi'];
+    $kota = $_POST['kota'];
+    $provinsi = $_POST['provinsi'];
     $email = $_POST['email'];
     $password = md5(trim($_POST['password']));
 
-    // Insert user data into table
-    $result = mysqli_query($mysqli, "INSERT INTO login(nama,email,password) VALUES('$nama','$email','$password')");
+    $reg = mysqli_query($mysqli, "INSERT INTO login(email,password,role) VALUES('$email','$password','R')");
+    $reg1 = mysqli_query($mysqli,"select * from login where email='".$email."'");
+
+    $val = mysqli_fetch_assoc($reg1);
+    $id = $val['ID_LOGIN'];   
+    echo $id;
+
+    $image_name = "relawanProfil\\/".$nama;
+
+    $nm_file = $_FILES["foto"]["name"];
+    $tp_file = $_FILES["foto"]["tmp_name"];
+    $sz_file = $_FILES["foto"]["size"];
+    $ty_file = $_FILES["foto"]["type"];
+    $x = explode('.', $nm_file);
+    $ekstensi = (end($x));
+
+    $fullName = $image_name."_". date("YmdHis") . "." . $ekstensi;
+    $dir = "C:\\xampp\\htdocs\\FP_PWEB_Rangkul\\assets\\img\\" . $fullName;
+
+    move_uploaded_file($tp_file, $dir);
+    $reg2 = mysqli_query($mysqli, "INSERT INTO relawan(id_login,r_nama,r_telp,r_tgl_lahir,r_profesi,r_kota_dom,r_provinsi_dom,r_foto) 
+                    VALUES('$id','$nama','$telp','$tglLahir','$profesi','$kota','$provinsi','$fullName')");
+
     mysqli_close($mysqli);
 
-    header("Location: register.php");
+    header("Location: ../registerRelawan.php");
     die();
 }
+
 else if ($_POST['act'] == "login"){
 
     $email = $_POST['email'];
@@ -62,3 +88,5 @@ else if ($_POST['act'] == "logout"){
     header("location: ../index.php");
     die();
 }
+
+?>

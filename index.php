@@ -33,6 +33,31 @@
 <!-- Pre loader -->
 <?php include('Partials/_loader.php')?>
 <div id="app">
+    
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Halo! ingin Register Sebagai?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a href="registerOrganisasi.php">
+                        <button type="submit" class="col-4 btn btn-primary" name="act" value="toRegOrganisasi">Organisasi</button>
+                    </a>
+                    <a href="registerRelawan.php">
+                        <button type="submit" class="col-4 btn btn-primary" name="act" value="toRegRelawan">Relawan</button>
+                    </a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main>
         <div id="primary" class="p-t-b-100 height-full">
             <div class="container">
@@ -40,7 +65,7 @@
                     <div class="col-lg-4 mx-md-auto paper-card">
                         <div class="text-center">
                             <img src="assets/img/dummy/u4.png" alt="">
-                            <h3 class="mt-2">Welcome Back</h3>
+                            <h3 class="mt-2">Selamat Datang di Rangkul!</h3>
                             <p class="p-t-b-20"></p>
                         </div>
                         <form action="Controller/authController.php" method="post">
@@ -54,8 +79,9 @@
                             </div>
                             <input type="hidden" name="act" value="login">
                             <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log In">
-                            <p class="forget-pass">Dont have account? <a href="register.php">Register Now</a></p>
                         </form>
+                        <div class="text-center "> OR </div>
+                        <button type="button" class="btn btn-secondary btn-lg btn-block" id="toRegister" data-toggle="modal" data-target="#exampleModal" > Register </button>
                     </div>
                 </div>
             </div>
@@ -65,5 +91,22 @@
 </div>
 <!--/#app -->
 <script src="assets/js/app.js"></script>
+<script src="assets/js/sweetalert.min.js"></script>
 <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
+<script>
+    $(document).ready(function() {
+
+        $('#toRegister').click(function () {
+            $("#name").val('');
+            $("#email").val('');
+            $("#address").val('');
+            $("#city").val('');
+            $("#msg").val('');
+            $("#id").val('');
+            $("#act").val('add');
+            $('.modal-title').text('Halo! ingin Register Sebagai Apa?');
+        });
+
+    });
+</script>
 </body></html>

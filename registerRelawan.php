@@ -1,3 +1,8 @@
+<?php
+// Create database connection using config file
+include_once("Config/condb.php");
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -39,6 +44,14 @@
             return "";
         }
 
+        function validateTelp(field) {
+            if (field == "")
+                return "Telephone number is empty\n";
+            else if (/[^0-9]/.test(field))
+                return "Only 0-9 allowed in Telephone Number\n";
+            return "";
+        }
+
         function validatePassword(field) {
             if (field == "") return "No Password was entered.\n";
             else if (field.length < 6)
@@ -53,6 +66,7 @@
             var fail = "";
             fail += validateUsername(form.nama.value);
             fail += validatePassword(form.password.value);
+            fail += validateTelp(form.telp.value);
             if (fail == "") return true
             else {
                 alert(fail); return false
@@ -114,13 +128,33 @@
                 <div class="row">
                     <div class="col-lg-4 mx-md-auto paper-card">
                         <div class="text-center" style="margin-bottom: 10px">
-                            <h3>Register</h3>
-                            <span>Create your account for free.</span>
+                            <h3>Register Relawan</h3>
+                            <span>Mari bergabung bersama ribuan relawan lainnya!</span>
                         </div>
-                        <form action="Controller/authController.php" method="post" onsubmit="return validate(this);">
+                        <form action="Controller/authController.php" method="post" onsubmit="return validate(this);" enctype="multipart/form-data">
                             <div class="form-group has-icon"><i class="icon-text_fields"></i>
                                 <input type="text" name="nama" class="form-control form-control-lg"
                                        placeholder="Name" id="nama">
+                            </div>
+                            <div class="form-group has-icon"><i class="icon-phone"></i>
+                                <input type="text" name="telp" class="form-control form-control-lg"
+                                       placeholder="No Telepon" id="telp">
+                            </div>
+                            <div class="form-group has-icon"><i class="icon-calendar"></i>
+                                <input type="date" name="tglLahir" class="form-control form-control-lg"
+                                        id="tglLahir">
+                            </div>
+                            <div class="form-group has-icon"><i class="icon-id-card"></i>
+                                <input type="text" name="profesi" class="form-control form-control-lg"
+                                       placeholder="Profesi" id="profesi">
+                            </div>
+                            <div class="form-group has-icon"><i class="icon-map-marker"></i>
+                                <input type="text" name="kota" class="form-control form-control-lg"
+                                       placeholder="Kota Asal" id="kota">
+                            </div>
+                            <div class="form-group has-icon"><i class="icon-map"></i>
+                                <input type="text" name="provinsi" class="form-control form-control-lg"
+                                       placeholder="Provinsi Asal" id="provinsi">
                             </div>
                             <div class="form-group has-icon"><i class="icon-envelope-o"></i>
                                 <input type="email" name="email" class="form-control form-control-lg"
@@ -130,7 +164,11 @@
                                 <input type="password" name="password" class="form-control form-control-lg"
                                        placeholder="Password" id="password">
                             </div>
-                            <input type="hidden" name="act" value="register">
+                            <div class="form-group "><i> Upload Foto Diri </i>
+                                <input type="file" class="form-control form-control-lg" accept="image/*" 
+                                    name="foto" required="required" id="foto">
+                            </div>
+                            <input type="hidden" name="act" value="registerRelawan">
                             <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register">
                             <p class="forget-pass"><a href="index.php">Log in Now</a></p>
                         </form>

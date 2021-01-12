@@ -154,3 +154,6 @@ alter table RELAWAN
       on update restrict
       on delete restrict;
 
+alter table RELAWAN ADD UNIQUE(ID_LOGIN);
+alter table ORGANISASI ADD UNIQUE(ID_LOGIN);
+alter table LOGIN ADD UNIQUE(EMAIL);
