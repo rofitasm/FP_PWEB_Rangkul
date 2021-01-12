@@ -153,4 +153,5 @@ alter table RELAWAN
       references LOGIN (ID_LOGIN)
       on update restrict
       on delete restrict;
-
+      
+alter table LOGIN ADD UNIQUE(EMAIL);
