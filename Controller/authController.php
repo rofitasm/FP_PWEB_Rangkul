@@ -41,6 +41,31 @@ if ($_POST['act'] == "registerRelawan"){
     die();
 }
 
+else if ($_POST['act'] == "registerOrganisasi"){
+    $nama = $_POST['nama'];
+    $telp = $_POST['telp'];
+    $tglBerdiri = $_POST['tglBerdiri'];
+    $deskripsi = $_POST['deskripsi'];
+    $web = $_POST['web'];
+    $lokasi = $_POST['lokasi'];
+    $email = $_POST['email'];
+    $password = md5(trim($_POST['password']));
+
+    $reg = mysqli_query($mysqli, "INSERT INTO login(email,password,role) VALUES('$email','$password','O')");
+    $reg1 = mysqli_query($mysqli,"select * from login where email='".$email."'");
+
+    $val = mysqli_fetch_assoc($reg1);
+    $id = $val['ID_LOGIN'];   
+    
+    $reg2 = mysqli_query($mysqli, "INSERT INTO organisasi(id_login,o_nama,o_telp,o_tgl_berdiri,o_deskripsi,o_lokasi,o_web) 
+                    VALUES('$id','$nama','$telp','$tglBerdiri','$deskripsi','$lokasi','$web')");
+
+    mysqli_close($mysqli);
+
+    header("Location: ../registerOrganisasi.php");
+    die();
+}
+
 else if ($_POST['act'] == "login"){
 
     $email = $_POST['email'];

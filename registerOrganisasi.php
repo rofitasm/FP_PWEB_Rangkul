@@ -128,39 +128,37 @@ include_once("Config/condb.php");
                 <div class="row">
                     <div class="col-lg-4 mx-md-auto paper-card">
                         <div class="text-center" style="margin-bottom: 10px">
-                            <h3>Register Relawan</h3>
-                            <span>Mari bergabung bersama ribuan relawan lainnya!</span>
+                            <h3>Register Organisasi</h3>
+                            <span>Mari beri kesempatan para relawan untuk bisa membantu!</span>
                         </div>
-                        <form action="Controller/authController.php" method="post" onsubmit="return validate(this);" enctype="multipart/form-data">
-                            <label for="tglBerdiri">Nama Relawan</label>
+                        <form action="Controller/authController.php" method="post" id="regOr" onsubmit="return validate(this);">
+                            <label for="nama">Nama Organisasi</label>
                             <div class="form-group has-icon"><i class="icon-text_fields"></i>
                                 <input type="text" name="nama" class="form-control form-control-lg"
-                                       placeholder="Nama Relawan" id="nama">
+                                       placeholder="Nama Organisasi" id="nama">
                             </div>
                             <label for="telp">No Telepon</label>
                             <div class="form-group has-icon"><i class="icon-phone"></i>
                                 <input type="text" name="telp" class="form-control form-control-lg"
                                        placeholder="No Telepon" id="telp">
                             </div>
-                            <label for="tglLahir">Tanggal Lahir</label>
+                            <label for="tglBerdiri">Tanggal Berdiri</label>
                             <div class="form-group has-icon"><i class="icon-calendar"></i>
-                                <input type="date" name="tglLahir" class="form-control form-control-lg"
-                                        id="tglLahir">
+                                <input type="date" name="tglBerdiri" class="form-control form-control-lg" id="tglBerdiri">
                             </div>
-                            <label for="profesi">Profesi</label>
+                            <label for="deskripsi">Deskripsi Organisasi</label>
+                            <div class="form-group has-icon">
+                                <textarea name="deskripsi" class="form-control" form="regOr"></textarea>
+                            </div>
+                            <label for="web">Alamat Website</label>
                             <div class="form-group has-icon"><i class="icon-id-card"></i>
-                                <input type="text" name="profesi" class="form-control form-control-lg"
-                                       placeholder="Profesi" id="profesi">
+                                <input type="text" name="web" class="form-control form-control-lg"
+                                       placeholder="Alamat Website" id="web">
                             </div>
-                            <label for="kota">Alamat Asal</label>
+                            <label for="lokasi">Alamat Lokasi</label>
                             <div class="form-group has-icon"><i class="icon-map-marker"></i>
-                                <input type="text" name="kota" class="form-control form-control-lg"
-                                       placeholder="Kota Asal" id="kota">
-                            </div>
-                            <!-- <label for="tglBerdiri"></label> -->
-                            <div class="form-group has-icon"><i class="icon-map"></i>
-                                <input type="text" name="provinsi" class="form-control form-control-lg"
-                                       placeholder="Provinsi Asal" id="provinsi">
+                                <input type="text" name="lokasi" class="form-control form-control-lg"
+                                       placeholder="Alamat Lokasi" id="lokasi">
                             </div>
                             <label for="email">Email</label>
                             <div class="form-group has-icon"><i class="icon-envelope-o"></i>
@@ -172,12 +170,7 @@ include_once("Config/condb.php");
                                 <input type="password" name="password" class="form-control form-control-lg"
                                        placeholder="Password" id="password">
                             </div>
-                            <label for="tglBerdiri">Upload Foto Diri </label>
-                            <div class="form-group ">
-                                <input type="file" class="form-control form-control-lg" accept="image/*" 
-                                    name="foto" required="required" id="foto">
-                            </div>
-                            <input type="hidden" name="act" value="registerRelawan">
+                            <input type="hidden" name="act" value="registerOrganisasi">
                             <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register">
                             <p class="forget-pass"><a href="index.php">Log in Now</a></p>
                         </form>
