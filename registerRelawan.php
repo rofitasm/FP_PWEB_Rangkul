@@ -131,7 +131,7 @@ include_once("Config/condb.php");
                             <h3>Register Relawan</h3>
                             <span>Mari bergabung bersama ribuan relawan lainnya!</span>
                         </div>
-                        <form action="Controller/authController.php" method="post" onsubmit="return validate(this);" enctype="multipart/form-data">
+                        <form action="Controller/authController.php" method="POST" onsubmit="return validate(this);" enctype="multipart/form-data">
                             <label for="tglBerdiri">Nama Relawan</label>
                             <div class="form-group has-icon"><i class="icon-text_fields"></i>
                                 <input type="text" name="nama" class="form-control form-control-lg"

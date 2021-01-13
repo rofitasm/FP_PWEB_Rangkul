@@ -3,6 +3,12 @@
 include_once("../Config/condb.php");
 
 if ($_POST['act'] == "registerRelawan"){
+
+    // echo "oke";
+    echo $_FILES['foto']['name'];
+    // die();
+
+
     $nama = $_POST['nama'];
     $telp = $_POST['telp'];
     $tglLahir = $_POST['tglLahir'];
@@ -11,27 +17,37 @@ if ($_POST['act'] == "registerRelawan"){
     $provinsi = $_POST['provinsi'];
     $email = $_POST['email'];
     $password = md5(trim($_POST['password']));
-
+    
+    
     $reg = mysqli_query($mysqli, "INSERT INTO login(email,password,role) VALUES('$email','$password','R')");
     $reg1 = mysqli_query($mysqli,"select * from login where email='".$email."'");
-
+    
     $val = mysqli_fetch_assoc($reg1);
     $id = $val['ID_LOGIN'];   
     echo $id;
 
-    $image_name = "relawanProfil\\/".$nama;
+    $image_name = "relawanProfil/".$nama;
 
-    $nm_file = $_FILES["foto"]["name"];
-    $tp_file = $_FILES["foto"]["tmp_name"];
-    $sz_file = $_FILES["foto"]["size"];
-    $ty_file = $_FILES["foto"]["type"];
+    $nm_file = $_FILES['foto']['name'];
+    $tp_file = $_FILES['foto']['tmp_name'];
+    $sz_file = $_FILES['foto']['size'];
+    $ty_file = $_FILES['foto']['type'];
     $x = explode('.', $nm_file);
     $ekstensi = (end($x));
-
+    
     $fullName = $image_name."_". date("YmdHis") . "." . $ekstensi;
-    $dir = "C:\\xampp\\htdocs\\FP_PWEB_Rangkul\\assets\\img\\" . $fullName;
-
-    move_uploaded_file($tp_file, $dir);
+    // $dir = "C:/xampp/htdocs/FP_PWEB_Rangkul/assets/img/" . $fullName;
+    $dir_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/up_foto/".$image_name;
+    $name_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/up_foto/" . $fullName;
+    
+    
+    // move file
+    if (!is_dir($dir_cek_foto)){
+        
+        mkdir($dir_cek_foto, 0777, $rekursif = true);
+        
+    };
+    move_uploaded_file($tp_file, $name_cek_foto);
     $reg2 = mysqli_query($mysqli, "INSERT INTO relawan(id_login,r_nama,r_telp,r_tgl_lahir,r_profesi,r_kota_dom,r_provinsi_dom,r_foto) 
                     VALUES('$id','$nama','$telp','$tglLahir','$profesi','$kota','$provinsi','$fullName')");
 
