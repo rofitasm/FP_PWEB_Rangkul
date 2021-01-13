@@ -18,6 +18,7 @@ session_start();
     <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="stylesheet" href="../assets/css/sweetalert.css">
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> -->
     <style>
         .loader {
             position: fixed;
@@ -143,10 +144,10 @@ else if ($_SESSION['role'] == "R"){
                               <i class="icon icon-people_outline"></i>
                               <?= $row->terdaftar."/".$row->A_KEBUTUHAN_RELAWAN ?>
                           </div>
-                          <?php if ($_SESSION['role'] == "R"){?>
+                          <?php if ($_SESSION['role'] == "R" && date("Y-m-d") < date('Y-m-d',strtotime($row->A_BATAS_REGIS))){?>
                           <br>
                           <div class="col-md-12">
-                              <a type="button" class="btn btn-primary btn-sm" href="../Controller/kegiatanController.php?a_id=<?= $row->A_ID ?>&act=daftarKegiatan">
+                              <a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop" href="../Controller/kegiatanController.php?a_id= <?= $row->A_ID ?>&act=daftarKegiatan">
                                   <i class="icon-list"></i>
                                   Ajukan Sebagai Relawan
                               </a>
@@ -184,6 +185,7 @@ else if ($_SESSION['role'] == "R"){
     </div>
 </div>
 </div>
+
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/sweetalert.min.js"></script>
 <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
