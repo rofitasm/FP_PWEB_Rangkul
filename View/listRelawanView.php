@@ -142,6 +142,14 @@ $result = mysqli_query($mysqli, "
 <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
 <script>
     $(document).ready(function() {
+//        $('#datatable').DataTable( {
+//            dom: 'Bfrtip',
+//            buttons: [
+//                'copy', 'csv', 'excel', 'pdf', 'print'
+//            ]
+//        } );
+
+
         <?php //if (isset($status)) {?>
 //        swal({
 //            position: 'center',

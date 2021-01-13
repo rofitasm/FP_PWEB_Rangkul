@@ -67,15 +67,13 @@ if (isset($_POST['act']) && $_POST['act'] == "add"){
     $a_nama                 = $_POST['a_nama'];
     $a_lokasi               = $_POST['a_lokasi'];
     $a_batas_regis          = $_POST['a_batas_regis'];
-    $a_detail               = $_POST['a_detail'];
+    $a_detail               = addslashes($_POST['a_detail']);
     $a_kebutuhan_relawan    = $_POST['a_kebutuhan_relawan'];
 
     $a_path = uploadImage();
 
-
-
     if ($a_path != 0){
-//        echo $a_path;
+//        echo $o_id." ".$a_nama." ".$a_lokasi." ".$a_batas_regis." ".$a_detail." ".$a_kebutuhan_relawan. " ". $a_path;
 //        die();
         // Insert user data into table
         $result = mysqli_query($mysqli, "
@@ -90,11 +88,25 @@ else if (isset($_POST['act']) && $_POST['act'] == "edit"){
     $a_nama                 = $_POST['a_nama'];
     $a_lokasi               = $_POST['a_lokasi'];
     $a_batas_regis          = $_POST['a_batas_regis'];
-    $a_detail               = $_POST['a_detail'];
+    $a_detail               = addslashes($_POST['a_detail']);
     $a_kebutuhan_relawan    = $_POST['a_kebutuhan_relawan'];
 
-    // Insert user data into table
-    $result = mysqli_query($mysqli, "
+    if(isset($_FILES['a_path']['name']) && $_FILES['a_path']['name'] != ""){
+
+        $a_path = uploadImage();
+
+        $result = mysqli_query($mysqli, "
+            UPDATE aktivitas 
+            SET A_NAMA ='$a_nama', 
+            A_LOKASI ='$a_lokasi', 
+            A_BATAS_REGIS ='$a_batas_regis', 
+            A_DETAIL ='$a_detail', 
+            A_PATH ='$a_path', 
+            A_KEBUTUHAN_RELAWAN ='$a_kebutuhan_relawan' 
+            WHERE A_ID ='$a_id'");
+    }
+    else{
+        $result = mysqli_query($mysqli, "
             UPDATE aktivitas 
             SET A_NAMA ='$a_nama', 
             A_LOKASI ='$a_lokasi', 
@@ -102,7 +114,7 @@ else if (isset($_POST['act']) && $_POST['act'] == "edit"){
             A_DETAIL ='$a_detail', 
             A_KEBUTUHAN_RELAWAN ='$a_kebutuhan_relawan' 
             WHERE A_ID ='$a_id'");
-
+    }
 }
 
 else if($_GET['act'] == "delete"){
