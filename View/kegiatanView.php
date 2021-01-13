@@ -110,7 +110,7 @@ else if ($_SESSION['role'] == "R"){
           <?php while($row = mysqli_fetch_object($result)){?>
           <div class="card my-3 no-b">
               <div class="card-body">
-              <?php if($_SESSION['role']=="O") { ?>
+              <?php if($_SESSION['role']!="R") { ?>
                   <div class="col-md-2 offset-11">
                   <a class="btn btn-warning btn-sm" href="../View/editKegiatanView.php?a_id=<?= $row->A_ID ?>">
                   <i class="icon-pencil"></i>
@@ -152,7 +152,7 @@ else if ($_SESSION['role'] == "R"){
                               </a>
                           </div>
                           <?php }?>
-                          <?php if (!$_SESSION['role'] != "R"){?>
+                          <?php if ($_SESSION['role'] != "R"){?>
                               <br>
                               <div class="col-md-12">
                                   <a type="button" class="btn btn-primary btn-sm"  href="listRelawanView.php?a_id=<?= $row->A_ID; ?>">
