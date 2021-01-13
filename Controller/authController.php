@@ -2,10 +2,11 @@
 // include database connection file
 include_once("../Config/condb.php");
 
+// Daftar Relawan
 if ($_POST['act'] == "registerRelawan"){
 
     // echo "oke";
-    echo $_FILES['foto']['name'];
+    // echo $_FILES['foto']['name'];
     // die();
 
 
@@ -24,7 +25,7 @@ if ($_POST['act'] == "registerRelawan"){
     
     $val = mysqli_fetch_assoc($reg1);
     $id = $val['ID_LOGIN'];   
-    echo $id;
+    // echo $id;
 
     $image_name = "relawanProfil/".$nama;
 
@@ -36,35 +37,69 @@ if ($_POST['act'] == "registerRelawan"){
     $ekstensi = (end($x));
     
     $fullName = $image_name."_". date("YmdHis") . "." . $ekstensi;
-    // $dir = "C:/xampp/htdocs/FP_PWEB_Rangkul/assets/img/" . $fullName;
+    $fuckName = $nama."_". date("YmdHis") . "." . $ekstensi;
+    // dir save foto
+    $dir = "C:/xampp/htdocs/FP_PWEB_Rangkul/assets/img/".$image_name;
+    if (!is_dir($dir)){
+        
+        mkdir($dir, 0777, $rekursif = true);
+        
+    };
 
     // dir cek foto
-    $dir_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/up_foto/".$image_name;
-    // dir and create new name for foto
-    $name_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/up_foto/" . $fullName;
-    
-    
-    //cek and create directory
+    $dir_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/";
     if (!is_dir($dir_cek_foto)){
         
         mkdir($dir_cek_foto, 0777, $rekursif = true);
         
     };
     
+    // dir and create new name for foto
+    $name_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/" . $fullName;
+    
+    
+    //cek and create directory
+    
     // move file
     move_uploaded_file($tp_file, $name_cek_foto);
 
     // create check photo
+    $file = $name_cek_foto;
+    echo $file;
 
+    $test = shell_exec("python face_detection.py -i $file");
+    // echo $test;
+    
 
-    // insert data
-    $reg2 = mysqli_query($mysqli, "INSERT INTO relawan(id_login,r_nama,r_telp,r_tgl_lahir,r_profesi,r_kota_dom,r_provinsi_dom,r_foto) 
-                    VALUES('$id','$nama','$telp','$tglLahir','$profesi','$kota','$provinsi','$fullName')");
+    if($test == 1) {
+        echo "benar";
+         // insert data
+        $reg2 = mysqli_query($mysqli, "INSERT INTO relawan(id_login,r_nama,r_telp,r_tgl_lahir,r_profesi,r_kota_dom,r_provinsi_dom,r_foto) 
+        VALUES('$id','$nama','$telp','$tglLahir','$profesi','$kota','$provinsi','$fullName')");
 
-    mysqli_close($mysqli);
+        mysqli_close($mysqli);
 
-    header("Location: ../registerRelawan.php");
-    die();
+        $fixdir = "C:/xampp/htdocs/FP_PWEB_Rangkul/assets/img/" . $nama;
+
+        // new direct to put photo at asset
+        $newdirect = $dir."/".$fuckName;
+       
+
+        copy($name_cek_foto , $newdirect);
+        unlink($name_cek_foto);
+
+        header("Location: ../registerRelawan.php");
+        
+        die();
+       
+    }
+    
+    else if ($test != 1) {
+        echo "salah";
+        die();
+    }
+
+   
 }
 
 else if ($_POST['act'] == "registerOrganisasi"){
