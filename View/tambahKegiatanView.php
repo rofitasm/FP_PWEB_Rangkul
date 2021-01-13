@@ -104,7 +104,7 @@ if (!isset($_SESSION['id_login'])){
                                     <textarea class="form-control detail" name="a_detail" placeholder="Detail Kegiatan"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="file" class="filepond" name="a_path[]" multiple data-allow-reorder="true" data-max-file-size="1MB" data-max-files="3">
+                                    <input type="file" class="filepond" name="a_path" data-allow-reorder="true" data-max-file-size="1MB" data-max-files="3">
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="act" value="add">
@@ -142,17 +142,17 @@ if (!isset($_SESSION['id_login'])){
             FilePondPluginFileValidateType,
         );
 
-       FilePond.create(
-            document.querySelector('input[name="a_path[]"]'), {
-                labelIdle: 'Geser dan Letakkan gambar atau <span class="filepond--label-action">Cari</span>',
-                imagePreviewHeight: 170,
-                imageCropAspectRatio: '1:1',
-                acceptedFileTypes : ['image/*'],
-                labelFileTypeNotAllowed : 'Hanya gambar yang diperbolehkan',
-                imageResizeTargetWidth: 200,
-                imageResizeTargetHeight: 200,
-            }
-        );
+//       FilePond.create(
+//            document.querySelector('input[name="a_path[]"]'), {
+//                labelIdle: 'Geser dan Letakkan gambar atau <span class="filepond--label-action">Cari</span>',
+//                imagePreviewHeight: 170,
+//                imageCropAspectRatio: '1:1',
+//                acceptedFileTypes : ['image/*'],
+//                labelFileTypeNotAllowed : 'Hanya gambar yang diperbolehkan',
+//                imageResizeTargetWidth: 200,
+//                imageResizeTargetHeight: 200,
+//            }
+//        );
 
         <?php //if (isset($status)) {?>
 //        swal({
