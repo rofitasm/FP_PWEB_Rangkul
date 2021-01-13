@@ -1,8 +1,8 @@
 Dohan
 - Role relawan (
 mendaftar relawan x 
-mengapply kegiatan, 
+mengapply kegiatan = mengirim  x
 validasi foto profil dengan python x
-lihat status kegiatan yang diterima
+lihat status kegiatan yang diterima "menunggu"
 
 id login oragnisais == 93

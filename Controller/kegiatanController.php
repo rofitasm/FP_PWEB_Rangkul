@@ -130,6 +130,27 @@ else if($_GET['act'] == "tolak"){
     die();
 }
 
+
+else if($_GET['act'] == "daftarKegiatan"){
+
+    $r_id = $_SESSION['r_id'];
+    $a_id = $_GET['a_id'];
+    $gr_id = "NULL";
+    $gr_status = "Menunggu";
+    $gr_tgl_daftar = date('Y-m-d H-i-s');
+    
+    $result = mysqli_query($mysqli, "
+    INSERT INTO gabung_relawan(GR_ID,R_ID,A_ID,GR_TGL_DAFTAR,GR_STATUS)
+    VALUES('$gr_id','$r_id','$a_id','$gr_tgl_daftar','$gr_status')");
+
+    mysqli_close($mysqli);
+    header("Location: ../View/kegiatanView.php?a_id=".$a_id);
+    die();
+    // die();
+}
+
+
+
 mysqli_close($mysqli);
 header("Location: ../View/kegiatanView.php");
 die();

@@ -146,10 +146,10 @@ else if ($_SESSION['role'] == "R"){
                           <?php if ($_SESSION['role'] == "R"){?>
                           <br>
                           <div class="col-md-12">
-                              <button type="button" class="btn btn-primary btn-sm" >
+                              <a type="button" class="btn btn-primary btn-sm" href="../Controller/kegiatanController.php?a_id=<?= $row->A_ID ?>&act=daftarKegiatan">
                                   <i class="icon-list"></i>
                                   Ajukan Sebagai Relawan
-                              </button>
+                              </a>
                           </div>
                           <?php }?>
                           <?php if (!$_SESSION['role'] == "R"){?>
