@@ -152,7 +152,7 @@ else if ($_SESSION['role'] == "R"){
                               </a>
                           </div>
                           <?php }?>
-                          <?php if (!$_SESSION['role'] == "R"){?>
+                          <?php if (!$_SESSION['role'] != "R"){?>
                               <br>
                               <div class="col-md-12">
                                   <a type="button" class="btn btn-primary btn-sm"  href="listRelawanView.php?a_id=<?= $row->A_ID; ?>">
@@ -168,7 +168,7 @@ else if ($_SESSION['role'] == "R"){
           <?php }?>
           <div class="card my-3 no-b">
               <div class="card-body">
-                <?php if (!$_SESSION['role']=="R") {?> 
+                <?php if ($_SESSION['role']!="R") {?> 
                   <div class="col-sm-12">
                       <center>
                       <a type="button" class="btn btn-success btn-sm" href="tambahKegiatanView.php">
