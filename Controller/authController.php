@@ -37,17 +37,27 @@ if ($_POST['act'] == "registerRelawan"){
     
     $fullName = $image_name."_". date("YmdHis") . "." . $ekstensi;
     // $dir = "C:/xampp/htdocs/FP_PWEB_Rangkul/assets/img/" . $fullName;
+
+    // dir cek foto
     $dir_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/up_foto/".$image_name;
+    // dir and create new name for foto
     $name_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/up_foto/" . $fullName;
     
     
-    // move file
+    //cek and create directory
     if (!is_dir($dir_cek_foto)){
         
         mkdir($dir_cek_foto, 0777, $rekursif = true);
         
     };
+    
+    // move file
     move_uploaded_file($tp_file, $name_cek_foto);
+
+
+    // create check photo
+
+    // insert data
     $reg2 = mysqli_query($mysqli, "INSERT INTO relawan(id_login,r_nama,r_telp,r_tgl_lahir,r_profesi,r_kota_dom,r_provinsi_dom,r_foto) 
                     VALUES('$id','$nama','$telp','$tglLahir','$profesi','$kota','$provinsi','$fullName')");
 
