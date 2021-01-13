@@ -154,9 +154,11 @@ else if ($_POST['act'] == "login"){
                     $_SESSION['o_web']          = $row['O_WEB'];
                 }
             }
-            else if ($user_data['role'] == 'R') {
+            else if ($user_data['ROLE'] == 'R') {
                 $data = mysqli_query($mysqli,"select * from relawan where id_login='".$_SESSION['id_login']."'");
-                
+                // echo var_dump($data);
+                // die();
+
                 while($row = mysqli_fetch_array($data)){
                     $_SESSION['r_id']           = $row['R_ID'];
                     $_SESSION['r_nama']         = $row['R_NAMA'];
@@ -166,7 +168,11 @@ else if ($_POST['act'] == "login"){
                     $_SESSION['r_provinsi_dom']       = $row['R_PROVINSI_DOM'];
                     $_SESSION['r_kota_dom']         = $row['R_KOTA_DOM'];
                     $_SESSION['r_foto']          = $row['R_FOTO'];
+                    
+                    // echo json_encode($_SESSION);
+                    // die();
                 }
+                
             }
         }
         mysqli_close($mysqli);
