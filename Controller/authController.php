@@ -27,7 +27,8 @@ if ($_POST['act'] == "registerRelawan"){
     $id = $val['ID_LOGIN'];   
     // echo $id;
 
-    $image_name = "relawanProfil/".$nama;
+    $name = str_replace(' ', '_', $nama);
+    $image_name = "relawanProfil/".$name;
 
     $nm_file = $_FILES['foto']['name'];
     $tp_file = $_FILES['foto']['tmp_name'];
@@ -37,7 +38,7 @@ if ($_POST['act'] == "registerRelawan"){
     $ekstensi = (end($x));
     
     $fullName = $image_name."_". date("YmdHis") . "." . $ekstensi;
-    $fuckName = $nama."_". date("YmdHis") . "." . $ekstensi;
+    $fuckName = $name."_". date("YmdHis") . "." . $ekstensi;
     // dir save foto
     $dir = "C:/xampp/htdocs/FP_PWEB_Rangkul/assets/img/".$image_name;
     if (!is_dir($dir)){
@@ -68,7 +69,8 @@ if ($_POST['act'] == "registerRelawan"){
     echo $file;
 
     $test = shell_exec("python face_detection.py -i $file");
-    // echo $test;
+    echo $test;
+    // die();
     
 
     if($test == 1) {
@@ -79,12 +81,9 @@ if ($_POST['act'] == "registerRelawan"){
 
         mysqli_close($mysqli);
 
-        $fixdir = "C:/xampp/htdocs/FP_PWEB_Rangkul/assets/img/" . $nama;
-
         // new direct to put photo at asset
         $newdirect = $dir."/".$fuckName;
        
-
         copy($name_cek_foto , $newdirect);
         unlink($name_cek_foto);
 
@@ -155,8 +154,25 @@ else if ($_POST['act'] == "login"){
                     $_SESSION['o_web']          = $row['O_WEB'];
                 }
             }
-            else if ($user_data['role'] == 'R') {
+            else if ($user_data['ROLE'] == 'R') {
                 $data = mysqli_query($mysqli,"select * from relawan where id_login='".$_SESSION['id_login']."'");
+                // echo var_dump($data);
+                // die();
+
+                while($row = mysqli_fetch_array($data)){
+                    $_SESSION['r_id']           = $row['R_ID'];
+                    $_SESSION['r_nama']         = $row['R_NAMA'];
+                    $_SESSION['r_telp']         = $row['R_TELP'];
+                    $_SESSION['r_tgl_lahir']  = $row['R_TGL_LAHIR'];
+                    $_SESSION['r_profesi']    = $row['R_profesi'];
+                    $_SESSION['r_provinsi_dom']       = $row['R_PROVINSI_DOM'];
+                    $_SESSION['r_kota_dom']         = $row['R_KOTA_DOM'];
+                    $_SESSION['r_foto']          = $row['R_FOTO'];
+                    
+                    // echo json_encode($_SESSION);
+                    // die();
+                }
+                
             }
         }
         mysqli_close($mysqli);

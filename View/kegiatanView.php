@@ -18,6 +18,7 @@ session_start();
     <link rel="stylesheet" href="../assets/css/app.css">
     <link rel="stylesheet" href="../assets/css/sweetalert.css">
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> -->
     <style>
         .loader {
             position: fixed;
@@ -47,11 +48,28 @@ if (!isset($_SESSION['id_login'])){
 }
 
 // Fetch all aktivitas data from database
-$result = mysqli_query($mysqli, "
+
+
+if ($_SESSION['role'] == "O"){
+
+    $result = mysqli_query($mysqli, "
     SELECT a.*, 
     (SELECT COUNT(*) FROM GABUNG_RELAWAN gr WHERE gr.A_ID = a.A_ID AND gr.GR_STATUS = 'Diterima') AS terdaftar,
     (SELECT COUNT(*) FROM GABUNG_RELAWAN gr WHERE gr.A_ID = a.A_ID AND gr.GR_STATUS = 'Menunggu') AS menunggu
     FROM AKTIVITAS a WHERE O_ID = '".$_SESSION['o_id']."'");
+}
+
+else if ($_SESSION['role'] == "R"){
+
+    $result = mysqli_query($mysqli, "
+    SELECT a.*, 
+    (SELECT COUNT(*) FROM GABUNG_RELAWAN gr WHERE gr.A_ID = a.A_ID AND gr.GR_STATUS = 'Diterima') AS terdaftar
+    FROM AKTIVITAS a 
+    "
+);
+
+}
+
 
 ?>
 
@@ -64,7 +82,16 @@ $result = mysqli_query($mysqli, "
         <div class="navbar navbar-expand navbar-dark d-flex justify-content-between bd-navbar">
             <div class="relative offset-9" style="height: 50px;">
                 <form action="../Controller/authController.php" method="post">
-                    <span class="text-white">hello <b><?= $_SESSION['o_nama']; ?></b>!</span>
+                    <span class="text-white">hello 
+                    <?php 
+                    if($_SESSION['role'] == "O"){
+                        echo $_SESSION['o_nama']; 
+                    }
+                    else if($_SESSION['role'] == "R"){
+                        echo $_SESSION['r_nama']; 
+                    }
+                    ?>
+                    !</span>
                     <input type="hidden" name="act" value="logout">
                     <input type="submit" class="btn btn-danger" value="Logout">
                 </form>
@@ -85,14 +112,17 @@ $result = mysqli_query($mysqli, "
           <?php while($row = mysqli_fetch_object($result)){?>
           <div class="card my-3 no-b">
               <div class="card-body">
+              <?php if($_SESSION['role']!="R") { ?>
                   <div class="col-md-2 offset-11">
-                      <a class="btn btn-warning btn-sm" href="../View/editKegiatanView.php?a_id=<?= $row->A_ID ?>">
-                          <i class="icon-pencil"></i>
-                      </a>
-                      <a class="btn btn-danger btn-sm" href="../Controller/kegiatanController.php?a_id=<?= $row->A_ID ?>&act=delete">
-                          <i class="icon-trash"></i>
-                      </a>
+                  <a class="btn btn-warning btn-sm" href="../View/editKegiatanView.php?a_id=<?= $row->A_ID ?>">
+                  <i class="icon-pencil"></i>
+                  </a>
+                  <a class="btn btn-danger btn-sm" href="../Controller/kegiatanController.php?a_id=<?= $row->A_ID ?>&act=delete">
+                  <i class="icon-trash"></i>
+                  </a>
                   </div>
+               <?php  }?>  
+               
                   <div class="row d-md-flex align-items-center">
                       <div class="col-md-9 d-flex align-items-center">
                           <img class="mr-3 r-3" width="100" src="../assets/img/kegiatan/<?= $row->A_PATH ?>" alt="Gambar kegiatan" style="width: 400px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
@@ -118,16 +148,16 @@ $result = mysqli_query($mysqli, "
                                   <span class="badge badge-dark small" tooltip><?= $row->menunggu ?></span>
                               </small>
                           </div>
-                          <?php if ($_SESSION['role'] == "R"){?>
+                          <?php if ($_SESSION['role'] == "R" && date("Y-m-d") < date('Y-m-d',strtotime($row->A_BATAS_REGIS))){?>
                           <br>
                           <div class="col-md-12">
-                              <button type="button" class="btn btn-primary btn-sm" >
+                              <a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop" href="../Controller/kegiatanController.php?a_id= <?= $row->A_ID ?>&act=daftarKegiatan">
                                   <i class="icon-list"></i>
                                   Ajukan Sebagai Relawan
-                              </button>
+                              </a>
                           </div>
                           <?php }?>
-                          <?php if ($_SESSION['role'] == "O"){?>
+                          <?php if ($_SESSION['role'] != "R"){?>
                               <br>
                               <div class="col-md-12">
                                   <a type="button" class="btn btn-primary btn-sm"  href="listRelawanView.php?a_id=<?= $row->A_ID; ?>">
@@ -143,18 +173,23 @@ $result = mysqli_query($mysqli, "
           <?php }?>
           <div class="card my-3 no-b">
               <div class="card-body">
+                <?php if ($_SESSION['role']!="R") {?> 
                   <div class="col-sm-12">
-                      <center><a type="button" class="btn btn-success btn-sm" href="tambahKegiatanView.php">
+                      <center>
+                      <a type="button" class="btn btn-success btn-sm" href="tambahKegiatanView.php">
                           <i class="icon-add"></i>
                           Tambah Kegiatan
-                      </a></center>
+                      </a>
+                      </center>
                   </div>
+                <?php  }?>
               </div>
           </div>
       </div>
     </div>
 </div>
 </div>
+
 <script src="../assets/js/app.js"></script>
 <script src="../assets/js/sweetalert.min.js"></script>
 <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
