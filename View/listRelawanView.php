@@ -83,6 +83,10 @@ $result = mysqli_query($mysqli, "
             <div class="animated fadeInUpShort my-3 mb-5">
                 <div class="card my-3 no-b">
                         <div class="card-body">
+                            <a href="kegiatanView.php" class="btn btn-primary btn-sm" style="margin-bottom: 10px">
+                                <i class="icon-angle-left"></i>
+                                Kembali
+                            </a>
                             <table class="table table-bordered table-hover data-tables"
                                    data-options='{"searching":true}' id="datatable">
                                 <thead>
@@ -95,19 +99,28 @@ $result = mysqli_query($mysqli, "
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php while($row = mysqli_fetch_array($result)){?>
-                                    <tr class="<?= $row['GR_STATUS'] == 'Diterima'? 'bg-success text-white' : '';?>">
-                                        <input class="id" type="hidden" value="<?= $row['R_ID']; ?>">
+                                <?php while($row = mysqli_fetch_array($result)){
+                                    $status = '';
+                                    if($row['GR_STATUS'] == "Diterima"){
+                                        $status = 'bg-success text-white';
+                                    }
+                                    else if($row['GR_STATUS'] == "Ditolak"){
+                                        $status = 'bg-danger text-white';
+                                    }
+                                    ?>
+                                    <tr class="<?= $status ?>">
+                                        <input class="r_id" type="hidden" value="<?= $row['R_ID']; ?>">
+                                        <input class="a_id" type="hidden" value="<?= $row['A_ID']; ?>">
                                         <td class="nama"><?= $row['R_NAMA']; ?></td>
                                         <td class="telp"><?= $row['R_TELP']; ?></td>
                                         <td class="telp"><span class="badge badge-dark r-3"><?= $row['R_PROFESI']; ?></span></td>
                                         <td class="kota"><?= $row['R_KOTA_DOM']; ?></td>
                                         <td>
                                             <?php if ($row['GR_STATUS'] == "Menunggu"){?>
-                                            <button type="button" class="btn btn-success btn-sm">
+                                            <button type="button" class="btn btn-success btn-sm" id="btnAcc">
                                                 <i class="icon-check"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-sm">
+                                            <button type="button" class="btn btn-danger btn-sm" id="btnTolak">
                                                 <i class="icon-close"></i>
                                             </button>
                                             <?php }?>
@@ -139,46 +152,54 @@ $result = mysqli_query($mysqli, "
 //        });
         <?php //}?>
 
-        $('#btnAdd').click(function () {
-            $("#desc").val('');
-            $("#priority").val('');
-            $("#date").val('');
-            $("#id").val('');
-            $("#act").val('add');
-            $('.modal-title').text('Tambah Data');
-        });
-
-        $('#datatable').on('click', '[id^=btnEdit]', function() {
+        $('#datatable').on('click', '[id^=btnAcc]', function() {
             var $item = $(this).closest("tr");
-            $("#desc").text($.trim($item.find(".desc").text()));
-            $("#priority").val($.trim($item.find(".priority").val()));
-            $("#date").val($.trim($item.find(".date").text()));
-            $("#id").val($.trim($item.find(".id").val()));
-            $("#act").val('edit');
-            $('.modal-title').text('Edit Data');
-        });
-
-        $('#datatable').on('click', '[id^=btnDelete]', function() {
-            var $item = $(this).closest("tr");
-            var ID = $.trim($item.find(".id").val());
-            var desc = $.trim($item.find(".desc").text());
+            var R_ID = $.trim($item.find(".r_id").val());
+            var A_ID = $.trim($item.find(".a_id").val());
+            var nama = $.trim($item.find(".nama").text());
 
             swal({
-                    title: "Ingin menghapus data?",
-                    text: "Todo " + desc + " akan dihapus",
+                    title: "Ingin memvalidasi relawan?",
+                    text: "Relawan dengan nama " + nama + " akan divalidasi",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#26C6DA",
-                    confirmButtonText: "Ya, hapus!",
+                    confirmButtonText: "Ya, validasi!",
                     cancelButtonText: "Tidak, batalkan!",
                     closeOnConfirm: false,
                     closeOnCancel: false
                 },
                 function(isConfirm){
                     if (isConfirm) {
-                        window.location.href = "todoController.php?act=delete&id=" + ID;
+                        window.location.href = "../Controller/kegiatanController.php?act=acc&r_id=" + R_ID + "&a_id=" + A_ID;
                     } else {
-                        swal("Dibatalkan", "Todo tidak jadi dihapus", "error");
+                        swal("Dibatalkan", "Relawan tidak jadi divalidasi", "error");
+                    }
+                });
+        });
+
+        $('#datatable').on('click', '[id^=btnTolak]', function() {
+            var $item = $(this).closest("tr");
+            var R_ID = $.trim($item.find(".r_id").val());
+            var A_ID = $.trim($item.find(".a_id").val());
+            var nama = $.trim($item.find(".nama").text());
+
+            swal({
+                    title: "Ingin menolak relawan?",
+                    text: "Relawan dengan nama " + nama + " akan ditolak",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#26C6DA",
+                    confirmButtonText: "Ya, validasi!",
+                    cancelButtonText: "Tidak, batalkan!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm){
+                    if (isConfirm) {
+                        window.location.href = "../Controller/kegiatanController.php?act=tolak&r_id=" + R_ID + "&a_id=" + A_ID;
+                    } else {
+                        swal("Dibatalkan", "Relawan tidak jadi divalidasi", "error");
                     }
                 });
         });

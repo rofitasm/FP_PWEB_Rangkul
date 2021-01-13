@@ -94,7 +94,7 @@ $result = mysqli_query($mysqli, "
                   </div>
                   <div class="row d-md-flex align-items-center">
                       <div class="col-md-9 d-flex align-items-center">
-                          <img class="mr-3 r-3" width="100" src="../assets/img/kegiatan/default.jpg" alt="Gambar kegiatan" style="width: 400px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                          <img class="mr-3 r-3" width="100" src="../assets/img/kegiatan/<?= $row->A_PATH ?>" alt="Gambar kegiatan" style="width: 400px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
                           <div>
                               <h1 style="position: absolute; top: 0;"><?= $row->A_NAMA ?></h1>
                               <br><br>
