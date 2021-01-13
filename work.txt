@@ -1,0 +1,8 @@
+Dohan
+- Role relawan (
+mendaftar relawan x 
+mengapply kegiatan, 
+validasi foto profil dengan python x
+lihat status kegiatan yang diterima
+
+id login oragnisais == 93

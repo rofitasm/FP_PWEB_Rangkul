@@ -47,12 +47,15 @@ if (!isset($_SESSION['id_login'])){
 }
 
 // Fetch all aktivitas data from database
+
 $result = mysqli_query($mysqli, "
     SELECT a.*, 
     (SELECT COUNT(*) FROM GABUNG_RELAWAN gr WHERE gr.A_ID = a.A_ID AND gr.GR_STATUS = 'Diterima') AS terdaftar
     FROM AKTIVITAS a WHERE O_ID = '".$_SESSION['o_id']."'");
 
 ?>
+
+
 
 <body class="light sidebar-collapse sidebar-offCanvas-lg">
 <!-- Pre loader -->
