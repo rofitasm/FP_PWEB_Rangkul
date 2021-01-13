@@ -54,8 +54,8 @@ if ($_POST['act'] == "registerRelawan"){
     // move file
     move_uploaded_file($tp_file, $name_cek_foto);
 
-
     // create check photo
+
 
     // insert data
     $reg2 = mysqli_query($mysqli, "INSERT INTO relawan(id_login,r_nama,r_telp,r_tgl_lahir,r_profesi,r_kota_dom,r_provinsi_dom,r_foto) 
