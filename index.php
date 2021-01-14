@@ -34,29 +34,29 @@
 <?php include('Partials/_loader.php')?>
 <div id="app">
     
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Halo! ingin Register Sebagai?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <a href="registerOrganisasi.php">
-                        <button type="submit" class="col-4 btn btn-primary" name="act" value="toRegOrganisasi">Organisasi</button>
-                    </a>
-                    <a href="registerRelawan.php">
-                        <button type="submit" class="col-4 btn btn-primary" name="act" value="toRegRelawan">Relawan</button>
-                    </a>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog" role="document">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="exampleModalLabel">Halo! ingin Register Sebagai?</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">&times;</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <a href="registerOrganisasi.php">-->
+<!--                        <button type="submit" class="col-4 btn btn-primary" name="act" value="toRegOrganisasi">Organisasi</button>-->
+<!--                    </a>-->
+<!--                    <a href="registerRelawan.php">-->
+<!--                        <button type="submit" class="col-4 btn btn-primary" name="act" value="toRegRelawan">Relawan</button>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <main>
         <div id="primary" class="p-t-b-100 height-full">
@@ -81,7 +81,7 @@
                             <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log In">
                         </form>
                         <div class="text-center "> OR </div>
-                        <button type="button" class="btn btn-secondary btn-lg btn-block" id="toRegister" data-toggle="modal" data-target="#exampleModal" > Register </button>
+                        <a type="button" class="btn btn-secondary btn-lg btn-block" id="toRegister" href="registerRelawan.php"> Register </a>
                     </div>
                 </div>
             </div>

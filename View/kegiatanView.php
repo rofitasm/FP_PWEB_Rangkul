@@ -54,7 +54,8 @@ if ($_SESSION['role'] == "O"){
 
     $result = mysqli_query($mysqli, "
     SELECT a.*, 
-    (SELECT COUNT(*) FROM GABUNG_RELAWAN gr WHERE gr.A_ID = a.A_ID AND gr.GR_STATUS = 'Diterima') AS terdaftar
+    (SELECT COUNT(*) FROM GABUNG_RELAWAN gr WHERE gr.A_ID = a.A_ID AND gr.GR_STATUS = 'Diterima') AS terdaftar,
+    (SELECT COUNT(*) FROM GABUNG_RELAWAN gr WHERE gr.A_ID = a.A_ID AND gr.GR_STATUS = 'Menunggu') AS menunggu
     FROM AKTIVITAS a WHERE O_ID = '".$_SESSION['o_id']."'");
 }
 
@@ -143,6 +144,11 @@ else if ($_SESSION['role'] == "R"){
                               <span class=""></span>
                               <i class="icon icon-people_outline"></i>
                               <?= $row->terdaftar."/".$row->A_KEBUTUHAN_RELAWAN ?>
+                              <?php if ($_SESSION['role'] == "O"){ ?>
+                                  <small>
+                                  <span class="badge badge-dark small" tooltip><?= $row->menunggu ?></span>
+                              </small>
+                              <?php }?>
                           </div>
                           <?php if ($_SESSION['role'] == "R" && date("Y-m-d") <= date('Y-m-d',strtotime($row->A_BATAS_REGIS))){?>
                           <br>
@@ -220,27 +226,28 @@ else if ($_SESSION['role'] == "R"){
             $('.modal-title').text('Edit Data');
         });
 
-        $('#datatable').on('click', '[id^=btnDelete]', function() {
+        $('#datatable').on('click', '[id^=btnTolak]', function() {
             var $item = $(this).closest("tr");
-            var ID = $.trim($item.find(".id").val());
-            var desc = $.trim($item.find(".desc").text());
+            var R_ID = $.trim($item.find(".r_id").val());
+            var A_ID = $.trim($item.find(".a_id").val());
+            var nama = $.trim($item.find(".nama").text());
 
             swal({
-                    title: "Ingin menghapus data?",
-                    text: "Todo " + desc + " akan dihapus",
+                    title: "Ingin menolak relawan?",
+                    text: "Relawan dengan nama " + nama + " akan ditolak",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#26C6DA",
-                    confirmButtonText: "Ya, hapus!",
+                    confirmButtonText: "Ya, validasi!",
                     cancelButtonText: "Tidak, batalkan!",
                     closeOnConfirm: false,
                     closeOnCancel: false
                 },
                 function(isConfirm){
                     if (isConfirm) {
-                        window.location.href = "todoController.php?act=delete&id=" + ID;
+                        window.location.href = "../Controller/kegiatanController.php?act=tolak&r_id=" + R_ID + "&a_id=" + A_ID;
                     } else {
-                        swal("Dibatalkan", "Todo tidak jadi dihapus", "error");
+                        swal("Dibatalkan", "Relawan tidak jadi divalidasi", "error");
                     }
                 });
         });

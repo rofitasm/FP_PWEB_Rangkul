@@ -83,7 +83,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM aktivitas WHERE A_ID = '".$_GET['
                 <div class="card my-3 no-b">
                     <div class="card-body">
                         <div class="row">
-                            <form action="../Controller/kegiatanController.php" method="post" class="col-md-12">
+                            <form action="../Controller/kegiatanController.php" method="post" enctype="multipart/form-data" class="col-md-12">
                                 <?php while($row = mysqli_fetch_object($result)){?>
                                 <div class="form-group">
                                     <label for="nama" class="col-form-label">Nama</label>
@@ -103,6 +103,9 @@ $result = mysqli_query($mysqli, "SELECT * FROM aktivitas WHERE A_ID = '".$_GET['
                                 </div>
                                 <div class="form-group">
                                     <textarea class="form-control detail" name="a_detail" placeholder="Detail Kegiatan"><?= $row->A_DETAIL?></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="file" class="filepond" name="a_path" data-allow-reorder="true" data-max-file-size="1MB" data-max-files="3">
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="act" value="edit">
