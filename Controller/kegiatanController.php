@@ -138,15 +138,43 @@ else if($_GET['act'] == "daftarKegiatan"){
     $gr_id = "NULL";
     $gr_status = "Menunggu";
     $gr_tgl_daftar = date('Y-m-d H-i-s');
-    
-    $result = mysqli_query($mysqli, "
-    INSERT INTO gabung_relawan(GR_ID,R_ID,A_ID,GR_TGL_DAFTAR,GR_STATUS)
-    VALUES('$gr_id','$r_id','$a_id','$gr_tgl_daftar','$gr_status')");
 
-    mysqli_close($mysqli);
-    header("Location: ../View/kegiatanView.php?a_id=".$a_id);
-    die();
+    // $dupesql = "
+    // SELECT A_ID , R_ID
+    // FROM aktivitas 
+    // WHERE A_ID = $a_id AND R_ID =$r_id";
+    // $duperaw = mysqli_query($mysqli,$dupesql);
+    // // $row = mysqli_num_rows($duperaw);
+
+    // if ($duperaw) 
+    // { 
+    //     // it return number of rows in the table. 
+    //     $row = mysqli_num_rows($duperaw); 
+          
+    //        if ($row) 
+    //           { 
+    //             echo $row."jancok"; 
+    //             printf("Number of row in the table : " . $row); 
+    //           } 
+    //     // close the result. 
+    //     die();
+    //     mysqli_free_result($result); 
+    // } 
+    // // echo $row;
     // die();
+    // if (mysqli_num_rows($duperaw) > 0) {
+    // die();
+    // }
+    // else{        
+        $result = mysqli_query($mysqli, "
+        INSERT INTO gabung_relawan(GR_ID,R_ID,A_ID,GR_TGL_DAFTAR,GR_STATUS)
+        VALUES('$gr_id','$r_id','$a_id','$gr_tgl_daftar','$gr_status')");
+        
+        mysqli_close($mysqli);
+        header("Location: ../View/kegiatanView.php?a_id=".$a_id);
+        die();
+        // die();
+    }
 }
 
 

@@ -144,10 +144,10 @@ else if ($_SESSION['role'] == "R"){
                               <i class="icon icon-people_outline"></i>
                               <?= $row->terdaftar."/".$row->A_KEBUTUHAN_RELAWAN ?>
                           </div>
-                          <?php if ($_SESSION['role'] == "R" && date("Y-m-d") < date('Y-m-d',strtotime($row->A_BATAS_REGIS))){?>
+                          <?php if ($_SESSION['role'] == "R" && date("Y-m-d") <= date('Y-m-d',strtotime($row->A_BATAS_REGIS))){?>
                           <br>
                           <div class="col-md-12">
-                              <a type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop" href="../Controller/kegiatanController.php?a_id= <?= $row->A_ID ?>&act=daftarKegiatan">
+                              <a type="button" class="btn btn-primary btn-sm"  href="../Controller/kegiatanController.php?a_id=<?=$row->A_ID?>&act=daftarKegiatan">
                                   <i class="icon-list"></i>
                                   Ajukan Sebagai Relawan
                               </a>
