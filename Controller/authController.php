@@ -141,7 +141,10 @@ else if ($_POST['act'] == "login"){
             $_SESSION['email']      = $user_data['EMAIL'];
             $_SESSION['role']       = $user_data['ROLE'];
 
-            if ($user_data['ROLE'] == 'O') {
+            if ($user_data['ROLE'] == 'A') {
+                header("location: ../admin.php");
+            }
+            else if ($user_data['ROLE'] == 'O') {
                 $data = mysqli_query($mysqli,"select * from organisasi where id_login='".$_SESSION['id_login']."'");
 
                 while($row = mysqli_fetch_array($data)){
@@ -153,6 +156,7 @@ else if ($_POST['act'] == "login"){
                     $_SESSION['o_telp']         = $row['O_TELP'];
                     $_SESSION['o_web']          = $row['O_WEB'];
                 }
+              header("location: ../View/kegiatanView.php");
             }
             else if ($user_data['ROLE'] == 'R') {
                 $data = mysqli_query($mysqli,"select * from relawan where id_login='".$_SESSION['id_login']."'");
@@ -172,11 +176,10 @@ else if ($_POST['act'] == "login"){
                     // echo json_encode($_SESSION);
                     // die();
                 }
-                
+                  header("location: ../View/kegiatanView.php"); 
             }
         }
         mysqli_close($mysqli);
-        header("location: ../View/kegiatanView.php");
     }else{
         mysqli_close($mysqli);
         header("location: ../index.php");

@@ -129,7 +129,7 @@ include_once("Config/condb.php");
                     <div class="col-lg-4 mx-md-auto paper-card">
                         <div class="text-center" style="margin-bottom: 10px">
                             <h3>Register Organisasi</h3>
-                            <span>Mari beri kesempatan para relawan untuk bisa membantu!</span>
+                            <span>(Isi data organisasi dengan lengkap)</span>
                         </div>
                         <form action="Controller/authController.php" method="post" id="regOr" onsubmit="return validate(this);">
                             <label for="nama">Nama Organisasi</label>
@@ -172,7 +172,7 @@ include_once("Config/condb.php");
                             </div>
                             <input type="hidden" name="act" value="registerOrganisasi">
                             <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register">
-                            <p class="forget-pass"><a href="index.php">Log in Now</a></p>
+                            <p class="forget-pass"><a href="admin.php">Back to Home</a></p>
                         </form>
                     </div>
                 </div>
