@@ -144,9 +144,11 @@ else if ($_SESSION['role'] == "R"){
                               <span class=""></span>
                               <i class="icon icon-people_outline"></i>
                               <?= $row->terdaftar."/".$row->A_KEBUTUHAN_RELAWAN ?>
-                              <small>
+                              <?php if ($_SESSION['role'] == "O"){ ?>
+                                  <small>
                                   <span class="badge badge-dark small" tooltip><?= $row->menunggu ?></span>
                               </small>
+                              <?php }?>
                           </div>
                           <?php if ($_SESSION['role'] == "R" && date("Y-m-d") < date('Y-m-d',strtotime($row->A_BATAS_REGIS))){?>
                           <br>
