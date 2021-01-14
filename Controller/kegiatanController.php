@@ -186,7 +186,7 @@ else if($_GET['act'] == "daftarKegiatan"){
         header("Location: ../View/kegiatanView.php?a_id=".$a_id);
         die();
         // die();
-    }
+    
 }
 
 
