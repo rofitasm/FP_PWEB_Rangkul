@@ -40,7 +40,7 @@ if ($_POST['act'] == "registerRelawan"){
     $fullName = $image_name."_". date("YmdHis") . "." . $ekstensi;
     $fuckName = $name."_". date("YmdHis") . "." . $ekstensi;
     // dir save foto
-    $dir = "C:/xampp/htdocs/FP_PWEB_Rangkul/assets/img/".$image_name;
+    $dir = "../assets/img/".$image_name;
     if (!is_dir($dir)){
         
         mkdir($dir, 0777, $rekursif = true);
@@ -48,7 +48,7 @@ if ($_POST['act'] == "registerRelawan"){
     };
 
     // dir cek foto
-    $dir_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/";
+    $dir_cek_foto = "../Cek_foto/";
     if (!is_dir($dir_cek_foto)){
         
         mkdir($dir_cek_foto, 0777, $rekursif = true);
@@ -56,7 +56,7 @@ if ($_POST['act'] == "registerRelawan"){
     };
     
     // dir and create new name for foto
-    $name_cek_foto = "C:/xampp/htdocs/FP_PWEB_Rangkul/Cek_foto/" . $fullName;
+    $name_cek_foto = "../Cek_foto/" . $fullName;
     
     
     //cek and create directory
@@ -66,7 +66,7 @@ if ($_POST['act'] == "registerRelawan"){
 
     // create check photo
     $file = $name_cek_foto;
-    echo $file;
+    // echo $file;
 
     $test = shell_exec("python face_detection.py -i $file");
     echo $test;
@@ -95,6 +95,7 @@ if ($_POST['act'] == "registerRelawan"){
     
     else if ($test != 1) {
         echo "salah";
+        header("Location: ../registerRelawan.php");
         die();
     }
 
