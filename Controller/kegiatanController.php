@@ -4,35 +4,35 @@ include_once("../Config/condb.php");
 
 session_start();
 
-function uploadImageMultiple(){
-    $limit = 10 * 1024 * 1024;
-    $ekstensi =  array('png','jpg','jpeg','gif');
-    $jumlahFile = count($_FILES['a_path']['name']);
-
-    echo json_encode($_FILES['a_path']['name']);
-    die();
-
-    for($x=0; $x<$jumlahFile; $x++){
-        $namafile = $_FILES['a_path']['name'][$x];
-        $tmp = $_FILES['a_path']['tmp_name'][$x];
-        $tipe_file = pathinfo($namafile, PATHINFO_EXTENSION);
-        $ukuran = $_FILES['a_path']['size'][$x];
-        if($ukuran > $limit){
-            return 0;
-        }else{
-            if(!in_array($tipe_file, $ekstensi)){
-                return 0;
-            }else{
-                $nama_file = md5(date('d-m-Y').'-'.$namafile).".".$tipe_file;
-                move_uploaded_file($tmp, '../assets/img/kegiatan/'.$nama_file);
-//                $x = date('d-m-Y').'-'.$namafile;
-//                mysqli_query($mysqli,"INSERT INTO gambar VALUES(NULL, '$x')");
-//                header("Location: ../View/kegiatanView.php");
-                return $nama_file;
-            }
-        }
-    }
-}
+//function uploadImageMultiple(){
+//    $limit = 10 * 1024 * 1024;
+//    $ekstensi =  array('png','jpg','jpeg','gif');
+//    $jumlahFile = count($_FILES['a_path']['name']);
+//
+//    echo json_encode($_FILES['a_path']['name']);
+//    die();
+//
+//    for($x=0; $x<$jumlahFile; $x++){
+//        $namafile = $_FILES['a_path']['name'][$x];
+//        $tmp = $_FILES['a_path']['tmp_name'][$x];
+//        $tipe_file = pathinfo($namafile, PATHINFO_EXTENSION);
+//        $ukuran = $_FILES['a_path']['size'][$x];
+//        if($ukuran > $limit){
+//            return 0;
+//        }else{
+//            if(!in_array($tipe_file, $ekstensi)){
+//                return 0;
+//            }else{
+//                $nama_file = md5(date('d-m-Y').'-'.$namafile).".".$tipe_file;
+//                move_uploaded_file($tmp, '../assets/img/kegiatan/'.$nama_file);
+////                $x = date('d-m-Y').'-'.$namafile;
+////                mysqli_query($mysqli,"INSERT INTO gambar VALUES(NULL, '$x')");
+////                header("Location: ../View/kegiatanView.php");
+//                return $nama_file;
+//            }
+//        }
+//    }
+//}
 
 function uploadImage(){
     $limit = 10 * 1024 * 1024;

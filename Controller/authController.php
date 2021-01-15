@@ -115,7 +115,7 @@ else if ($_POST['act'] == "registerOrganisasi"){
     $reg1 = mysqli_query($mysqli,"select * from login where email='".$email."'");
 
     $val = mysqli_fetch_assoc($reg1);
-    $id = $val['ID_LOGIN'];   
+    $id = $val['ID_LOGIN'];
     
     $reg2 = mysqli_query($mysqli, "INSERT INTO organisasi(id_login,o_nama,o_telp,o_tgl_berdiri,o_deskripsi,o_lokasi,o_web) 
                     VALUES('$id','$nama','$telp','$tglBerdiri','$deskripsi','$lokasi','$web')");
