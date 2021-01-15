@@ -66,9 +66,9 @@ if ($_POST['act'] == "registerRelawan"){
 
     // create check photo
     $file = $name_cek_foto;
-    echo $file;
+    // echo $file;
 
-    $test = shell_exec("python face_detection.py -i $file");
+    $test = shell_exec("python face_detection.py -i $file -s");
     echo $test;
     // die();
     
@@ -95,6 +95,7 @@ if ($_POST['act'] == "registerRelawan"){
     
     else if ($test != 1) {
         echo "salah";
+        header("Location: ../registerRelawan.php");
         die();
     }
 

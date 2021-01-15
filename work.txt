@@ -3,6 +3,6 @@ Dohan
 mendaftar relawan x 
 mengapply kegiatan = mengirim  x
 validasi foto profil dengan python x
-lihat status kegiatan yang diterima "menunggu"
+lihat status kegiatan yang diterima "menunggu" 
 
 id login oragnisais == 93
