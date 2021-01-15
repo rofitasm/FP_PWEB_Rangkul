@@ -68,7 +68,7 @@ if ($_POST['act'] == "registerRelawan"){
     $file = $name_cek_foto;
     // echo $file;
 
-    $test = shell_exec("python face_detection.py -i $file -s");
+    $test = shell_exec("python face_detection.py -i $file");
     echo $test;
     // die();
     
